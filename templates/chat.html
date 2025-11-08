@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Chat — Generative AI Chatbot</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width:800px; margin:40px auto; }
+    #chat { border:1px solid #ddd; padding:16px; min-height:300px; background:#fafafa; }
+    .msg { margin:8px 0; }
+    .user { text-align:right; font-weight:600; }
+    .bot { text-align:left; color:#333; }
+    #inputArea { margin-top:12px; display:flex; gap:8px; }
+    input[type="text"] { flex:1; padding:8px; font-size:16px; }
+    button { padding:8px 12px; }
+  </style>
+</head>
+<body>
+  <h1>Chat</h1>
+  <div id="chat"></div>
+
+  <div id="inputArea">
+    <input id="message" type="text" placeholder="Type your message..." />
+    <button id="send">Send</button>
+  </div>
+
+  <script>
+    const chat = document.getElementById('chat');
+    const messageInput = document.getElementById('message');
+    const sendBtn = document.getElementById('send');
+
+    function addMessage(text, cls) {
+      const d = document.createElement('div');
+      d.className = 'msg ' + cls;
+      d.textContent = text;
+      chat.appendChild(d);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    sendBtn.onclick = async () => {
+      const msg = messageInput.value.trim();
+      if (!msg) return;
+      addMessage(msg, 'user');
+      messageInput.value = '';
+      addMessage('••• thinking', 'bot');
+      const payload = { message: msg };
+      try {
+        const r = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await r.json();
+        // remove thinking
+        const last = document.querySelectorAll('.bot');
+        if (last.length) last[last.length-1].remove();
+        if (data.ok) {
+          addMessage(data.reply, 'bot');
+        } else {
+          addMessage('Error: ' + (data.error || 'unknown'), 'bot');
+        }
+      } catch (e) {
+        addMessage('Network error', 'bot');
+      }
+    };
+
+    messageInput.addEventListener('keypress', function(e){
+      if (e.key === 'Enter') sendBtn.click();
+    });
+  </script>
+</body>
+</html>

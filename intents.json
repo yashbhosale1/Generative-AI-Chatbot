@@ -1,0 +1,51 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": [
+        "hello",
+        "hi",
+        "hey",
+        "good morning",
+        "good evening"
+      ],
+      "responses": [
+        "Hello! How can I help you today?"
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": [
+        "bye",
+        "see you",
+        "goodbye",
+        "talk later"
+      ],
+      "responses": [
+        "Goodbye! Have a great day."
+      ]
+    },
+    {
+      "tag": "ask_capabilities",
+      "patterns": [
+        "what can you do",
+        "capabilities",
+        "help me",
+        "features"
+      ],
+      "responses": [
+        "I can answer questions, chat, and demonstrate a generative AI flow."
+      ]
+    },
+    {
+      "tag": "smalltalk",
+      "patterns": [
+        "how are you",
+        "how is it going"
+      ],
+      "responses": [
+        "I'm a bot \u2014 ready to help!"
+      ]
+    }
+  ]
+}

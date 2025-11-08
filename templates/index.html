@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Generative AI Chatbot - Home</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 40px; max-width:800px; margin:auto; }
+    a { color: blue; }
+    pre { background:#f4f4f4; padding:10px; }
+  </style>
+</head>
+<body>
+  <h1>Generative AI Chatbot</h1>
+  <p>Built with OpenAI API, Flask, LangChain, HuggingFace (optional), and scikit-learn intent detection.</p>
+  <ul>
+    <li><a href="/chat">Open Chat Interface</a></li>
+    <li>Files: <code>app.py</code>, <code>utils.py</code>, <code>intents.json</code></li>
+  </ul>
+  <h3>How it works (summary)</h3>
+  <ol>
+    <li>User input -> NLP preprocessing (cleaning & tokenization)</li>
+    <li>Intent detection (scikit-learn logistic regression)</li>
+    <li>If confident: return canned response</li>
+    <li>Else: call OpenAI (via LangChain if installed) to generate an answer</li>
+  </ol>
+  <p>To run: see README or open terminal and run <code>python app.py</code> after installing requirements and setting <code>OPENAI_API_KEY</code>.</p>
+</body>
+</html>
